@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:      
+    - uses: actions/checkout@v2
+    - name: Delelte actual latest docker image
+      run: docker image rm ronaldoarriola/github-example-app:latest
+      
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker image build . --file GithubExample/Dockerfile --tag ronaldoarriola/github-example-app:latest
